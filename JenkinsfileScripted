@@ -1,27 +1,27 @@
 node
 {
  
-  stage("CheckOutCodeGit")
+  stage("Fetch Code")
   {
-   git branch: 'master', credentialsId: '65fb834f-a83b-4fe7-8e11-686245c47a65', url: 'https://github.com/bhaskar0504/node-js-application.git'
+   git branch: 'master', url: 'https://github.com/Kamalesh-Seervi/Nodejs_CI-CD_jenkins.git'
  }
  
  stage("Build")
  {
- nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+ nodejs(nodeJSInstallationName: 'nodejs_15.3.0') {
         sh 'npm install'
     }
  }  
  
-  stage('ExecuteSonarQubeReport') {
-     nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+  stage('SonarQube_Report') {
+     nodejs(nodeJSInstallationName: 'nodejs_15.3.0') {
         sh 'npm run sonar'
     }
       
         } 
 		
-    stage('UploadintoNexus') {
-       nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+    stage('Upload_to_Nexus') {
+       nodejs(nodeJSInstallationName: 'nodejs_15.3.0') {
           sh 'npm publish'
       }
       
@@ -30,7 +30,7 @@ node
  stage('RunNodeJsApp')
  {
  //sh "./scripts/run.sh"
- nodejs(nodeJSInstallationName: 'nodejs15.2.1') {
+ nodejs(nodeJSInstallationName: 'nodejs_15.3.0') {
         sh 'npm start &'
     }
 }    
